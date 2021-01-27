@@ -1,0 +1,146 @@
+<form [formGroup]="articleService.form" (ngSubmit)="onSave()" style="margin-top: 20px">
+  <mat-card>
+    <mat-card-header>
+      <div class="icon-style ">
+        <mat-card-title class="span-style">{{articleService.form.controls['id'].value? "Modifier l'article: "+articleService.form.controls['titre'].value
+                                                                                   : "Ajouter un article"}}</mat-card-title>
+       <span class="fill-remaining-space"></span>
+
+      </div>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-card-content>
+      <mat-accordion class="example-headers-align">
+
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title><b>Informations de l'article</b></mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-grid-list cols="2" rowHeight="100px">
+
+            <mat-grid-tile colspan="1" rowspan="1">
+              <input type="hidden" formControlName="id">
+
+              <mat-form-field class="style-full-width">
+                <mat-label>Titre*</mat-label>
+                <input matInput formControlName="titre" type="text" placeholder="Titre de l'article">
+                <mat-error>Le titre est obligatoire</mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field class="style-full-width">
+                <mat-label>Affiliation</mat-label>
+                <input matInput formControlName="affiliation" type="text" placeholder="Affiliation">
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+              <mat-form-field style="width: 100%; margin-right: 5%;">
+                <mat-label>Résumé*</mat-label>
+                <textarea matInput formControlName="resume" placeholder="Résumé de l'article" maxlength="300" #resume></textarea>
+                <mat-hint align="start">Résumé de l'article</mat-hint>
+                <mat-hint align="end">{{resume.value.length}}/300</mat-hint>
+
+              </mat-form-field>
+            </mat-grid-tile>
+
+          </mat-grid-list>
+
+          <mat-action-row *ngIf="!articleService.form.controls['id'].value">
+            <button mat-button color="primary" type="button" (click)="nextStep()">Suivant</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title><b>Manuscrite</b></mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-grid-list cols="2" rowHeight="100px">
+            <mat-grid-tile colspan="1" rowspan="1">
+              <div class="style-full-width">
+                <div class="custom-file">
+                  <input type="file" id="file" class="custom-file-input" (change)="onFileChanged($event)" accept=".pdf">
+                  <label class="custom-file-label" for="file">Choose file...</label>
+                </div>
+              </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="1" rowspan="1">
+              <div class="style-full-width">
+                {{this.selectedFile?.name}}
+              </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field class="style-full-width">
+                <mat-label>Mot Clé</mat-label>
+                <input matInput placeholder="Mot Clé" formControlName="motCle">
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="1" rowspan="1">
+              <div class="style-full-width">
+                <button type="button" (click)="onAddMotCle()"
+                        mat-raised-button color="accent">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+              <mat-chip-list>
+                <mat-chip  *ngFor="let mot of listMotCle" color="primary" selected>{{ mot }}</mat-chip>
+              </mat-chip-list>
+            </mat-grid-tile>
+
+          </mat-grid-list>
+          <mat-action-row>
+            <button mat-button color="warn" type="button" (click)="prevStep()">Précedent</button>
+            <button mat-button color="primary" type="button" (click)="nextStep()">Suivant</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="!articleService.form.controls['id'].value" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title><b>Auteurs de l'article</b></mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-grid-list cols="2" rowHeight="100px">
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field class="style-full-width">
+                <mat-label>Correspondant*</mat-label>
+                <mat-select formControlName="correspondant">
+                  <mat-option>-- Faites un choix --</mat-option>
+                  <mat-option *ngFor="let auteur of this.listAuteur" [value]="auteur" >{{auteur.nom}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field class="style-full-width">
+                <mat-label>Co-Auteurs*</mat-label>
+                <mat-select formControlName="coAuteur" multiple>
+                  <mat-option *ngFor="let auteur of this.listAuteur" [value]="auteur" [disabled]="(articleService.form.get('correspondant').value == auteur)">{{auteur.nom}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-action-row>
+            <button mat-button color="warn" type="button" (click)="prevStep()">Précedent</button>
+            <button mat-button color="primary"  type="button" (click)="nextStep()">Fin</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <div></div>
+      <button *ngIf="!articleService.form.controls['id'].value" mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="articleService.form.invalid">Valider</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+

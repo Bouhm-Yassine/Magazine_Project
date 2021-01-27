@@ -1,0 +1,50 @@
+<div style="margin-top: 20px">
+  <mat-card style="padding: 30px 20px 30px 20px;">
+    <mat-form-field style="width: 20%; margin-right: 30px" floatLabel="never">
+      <input matInput [(ngModel)]="keyword" placeholder="Keyword" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field style="width: 20%; margin-right: 30px" floatLabel="never">
+      <input matInput [(ngModel)]="auteur" placeholder="Auteur" autocomplete="off">
+    </mat-form-field>
+    <button type="button" class="btn btn-success" (click)="doGetArticleByKeywordAuteur()">Search</button>
+  </mat-card>
+</div>
+
+<div style="margin-top: 20px">
+  <mat-card style="padding: 30px 20px 30px 20px;">
+
+    <div class="aff" *ngFor="let article of listData">
+      <div class="aff-info">
+        <h3>{{article?.titre}}</h3>
+        <div style="font-size: 15px; margin-bottom: 5px">{{article?.resume}}</div>
+
+        <b class="d-inline" style="color: #3F51B5">Mots clés: </b>&nbsp;
+        <div class="d-inline" style="font-size: 14px; margin-bottom: 5px; " *ngFor="let mot of article?.motsCles">
+          {{mot?.libelle}}.
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-10">
+            <b class="d-inline" style="color: #3F51B5">Auteurs: </b>&nbsp;
+            <div class="d-inline" style="font-size: 14px; margin-bottom: 5px; " *ngFor="let depos of article?.depositions">
+              {{depos?.intervenant?.nom}} <b *ngIf="depos?.status == 'Correspondant'">({{depos?.status}})</b>.
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <button *ngIf="authService.isAuthenticated()" type="button" class="btn btn-outline-dark" (click)="onManuscriteViewer(article.id)">Manuscrite</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="listData != null && listData.length == 0" style="padding: 20px">
+          <p style="font-style: italic; text-align: center">No Data</p>
+    </div>
+
+    <div *ngIf="listData == null" style="padding: 40px">
+          <p style="font-style: italic; text-align: center">Loading ...</p>
+    </div>
+  </mat-card>
+</div>
+
+

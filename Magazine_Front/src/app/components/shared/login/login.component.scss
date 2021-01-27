@@ -1,0 +1,79 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
+}
+
+.mat-form-field {
+  width: 100%;
+  min-width: 450px;
+}
+
+mat-card-title {
+  display: flex;
+  justify-content: center;
+}
+
+mat-card {
+  padding: 25px 40px 25px 40px;
+}
+
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.main-head {
+  height: 150px;
+  background: #FFF;
+
+}
+
+.sidenav {
+  height: 100%;
+  background-color: #3F51B5;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+
+.main {
+  padding: 0px 30px;
+}
+
+.sidenav {
+  width: 30%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+
+.login-form {
+  margin-top: 80%;
+}
+
+.register-form {
+  margin-top: 20%;
+}
+
+
+.login-main-text {
+  margin-top: 20%;
+  padding: 60px;
+  color: #fff;
+}
+
+.login-main-text1 {
+  position: fixed;
+  bottom: 0;
+  padding: 60px 60px 20px 60px;
+  color: #fff;
+}
+
+.btn-black {
+  background-color: #000 !important;
+  color: #fff;
+}

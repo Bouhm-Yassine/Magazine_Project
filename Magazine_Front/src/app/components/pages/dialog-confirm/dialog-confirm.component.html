@@ -1,0 +1,10 @@
+<div>
+  <div class="content-container">
+    <mat-icon id="close-icon" (click)="closeDialog()">close</mat-icon>
+    <span class="content-span full-width">Etes vous sure de continuer !!</span>
+  </div>
+  <div class="modal-footer">
+    <button mat-flat-button color="accent" id="no-btn" [mat-dialog-close]="false" >Cancel</button>
+    <button style="margin-left: 15px" mat-flat-button color="primary" id="yes-btn" [mat-dialog-close]="true" >Oui</button>
+  </div>
+</div>

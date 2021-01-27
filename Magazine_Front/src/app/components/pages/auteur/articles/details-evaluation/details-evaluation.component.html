@@ -1,0 +1,52 @@
+<mat-card style="padding: 30px;">
+  <div style="display: flex; align-items: center;">
+    <div class="icon-style">
+      <mat-card-title class="span-style">
+        <span>Evaluation de l'article: {{this.articleService.myArticle.titre}}</span>
+      </mat-card-title>
+    </div>
+  </div>
+  <br>
+  <mat-divider></mat-divider>
+  <br>
+
+  <mat-card-content class="mat-elevation-z8">
+    <mat-chip-list></mat-chip-list>
+    <div>
+      <table style="width: 100%"  mat-table [dataSource]="listData" multiTemplateDataRows matSort>
+
+        <ng-container matColumnDef="juge">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Juge </th>
+          <td mat-cell *matCellDef="let aff"> # Juge </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+          <td mat-cell *matCellDef="let aff"> {{aff.dateAffectation}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="decision">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Decision </th>
+          <td mat-cell *matCellDef="let aff"> {{aff.decision ? aff.decision : "[Pas encore de décision]"}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="commentaire">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Commentaire </th>
+          <td mat-cell *matCellDef="let aff" > {{aff.commentaire ? aff.commentaire : "[Pas encore de commentaire]"}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+      <div *ngIf="listData != null && listData.filteredData.length == 0" style="padding: 20px">
+        <p style="font-style: italic; text-align: center">No Data ...</p>
+      </div>
+
+      <div *ngIf="listData == null" style="padding: 40px">
+        <p style="font-style: italic; text-align: center">Loading ...</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+

@@ -1,0 +1,30 @@
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" routerLink="/articles">Eco Magazine</a>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/articles">Articles</a>
+        </li>
+        <li *ngIf="!authService.isAdmin() && authService.isAuthenticated()" class="nav-item active">
+          <a class="nav-link" routerLink="/ajouterArticle">Ajouter</a>
+        </li>
+        <li *ngIf="!authService.isAdmin() && authService.isAuthenticated()" class="nav-item active">
+          <a class="nav-link" routerLink="/mesArticles">Mes articles</a>
+        </li>
+        <li *ngIf="!authService.isAdmin() && authService.isAuthenticated()" class="nav-item active">
+          <a class="nav-link" routerLink="/mesAffectations">Mes Affectations</a>
+        </li>
+        <li *ngIf="authService.isAdmin() && authService.isAuthenticated()" class="nav-item active">
+          <a class="nav-link" routerLink="/comiteArticles">Comité</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <button *ngIf="authService.isAuthenticated()" mat-raised-button color="primary" (click)="onLogout()">Logout</button>&nbsp;&nbsp;&nbsp;
+				<button *ngIf="!authService.isAuthenticated()" mat-raised-button color="primary" routerLink="/login">Login</button>&nbsp;&nbsp;&nbsp;
+        <button *ngIf="!authService.isAuthenticated()" type="button" class="btn btn-outline-success" routerLink="/register">Register</button>
+      </span>
+    </div>
+  </nav>
+</div>

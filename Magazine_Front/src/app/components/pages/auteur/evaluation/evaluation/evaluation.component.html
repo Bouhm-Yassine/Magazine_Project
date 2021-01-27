@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-header>
+    <div class="icon-style">
+      <mat-icon class="span-style" color="primary">done</mat-icon>
+      <mat-card-title class="span-style">Evaluation de l'article: {{myAff.article.titre}}</mat-card-title>
+    </div>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <mat-accordion class="example-headers-align">
+      <div>
+        <mat-grid-list cols="2" rowHeight="100px">
+          <mat-grid-tile  colspan="2" rowspan="1">
+            <mat-form-field class="style-full-width">
+              <mat-label>Décision*</mat-label>
+              <mat-select  [(ngModel)]="decision" name="decision" #dec>
+                <mat-option value="accepté">Accepté</mat-option>
+                <mat-option value="accepté avec modifications">Accepté avec modifications</mat-option>
+                <mat-option value="refus">Refus</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile  colspan="2" rowspan="1">
+            <mat-form-field class="style-full-width">
+              <mat-label>Commentaire</mat-label>
+              <textarea matInput [(ngModel)]="commentaire" name="commentaire" placeholder="Commentaire" maxlength="150" #comment></textarea>
+              <mat-hint align="start">Commentaire</mat-hint>
+              <mat-hint align="end">{{comment.value.length}}/150</mat-hint>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </mat-accordion>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button style="margin-left: 100px;" disabled="{{dec.empty}}" mat-raised-button color="primary" type="submit" (click)="onEvalue()">Valider</button>
+  </mat-card-actions>
+</mat-card>
+

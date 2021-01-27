@@ -1,0 +1,69 @@
+<div class="main" style="margin-top: 20px">
+  <div>
+    <div>
+      <div *ngIf="error == 1" class="alert alert-danger">
+        <strong>Remplir les champs correctement ...</strong>
+      </div>
+      <mat-card  class="elevation-3">
+        <mat-card-title>Inscription</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="utilisateurService.registerForm" (ngSubmit)="onRegister()">
+            <div class="row">
+              <div class="div col-lg-6">
+                <p>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="Nom complet" formControlName="nom">
+                    <mat-error>Ce champs est obligatoire</mat-error>
+                  </mat-form-field>
+                </p>
+              </div>
+              <div class="div col-lg-6">
+                <p>
+                  <mat-form-field>
+                    <input type="email" matInput placeholder="Email" formControlName="email">
+                    <mat-error>Ce champs est obligatoire</mat-error>
+                  </mat-form-field>
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                  <p>
+                    <mat-form-field>
+                      <input type="text" matInput placeholder="Nom d'utilisateur" formControlName="username">
+                      <mat-error>Ce champs est obligatoire</mat-error>
+                    </mat-form-field>
+                  </p>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="div col-lg-6">
+                <p>
+                  <mat-form-field>
+                    <input type="password" matInput placeholder="Mot de pass" formControlName="password">
+                    <mat-error>Ce champs est obligatoire</mat-error>
+                  </mat-form-field>
+                </p>
+              </div>
+              <div class="div col-lg-6">
+                <p>
+                  <mat-form-field>
+                    <input type="password" matInput placeholder="Confirmer" formControlName="repassword">
+                    <mat-error>Ce champs est obligatoire</mat-error>
+                  </mat-form-field>
+                </p>
+              </div>
+            </div>
+
+            <div class="button">
+              <button type="submit" mat-raised-button color="primary" [disabled]="utilisateurService.registerForm.invalid">Inscription</button>
+            </div>
+
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
